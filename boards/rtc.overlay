@@ -1,0 +1,14 @@
+/ {
+	aliases {
+		rtc = &rv_8263_c8;
+	};
+};
+
+&i2c0 {
+	rv_8263_c8: rv-8263-c8@51 {
+		compatible = "microcrystal,rv-8263-c8";
+		reg = <0x51>;
+		status = "okay";
+		clkout = <8192>;
+	};
+};
