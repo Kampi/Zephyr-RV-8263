@@ -52,7 +52,7 @@ int main(void)
     time.tm_wday = 0;
     time.tm_mday = 1;
     time.tm_mon = 1;
-    time.tm_year = 0;
+    time.tm_year = 124;
     rtc_set_time(rtc, &time);
 
 #if CONFIG_RTC_ALARM

@@ -9,6 +9,7 @@
 		compatible = "microcrystal,rv-8263-c8";
 		reg = <0x51>;
 		status = "okay";
-		clkout = <8192>;
+		clkout = <1024>;
+		int-gpios = <&gpio0 11 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
 	};
 };
