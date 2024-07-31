@@ -2,7 +2,7 @@
 #include <zephyr/drivers/rtc.h>
 #include <zephyr/logging/log.h>
 
-const struct device *const rtc = DEVICE_DT_GET(DT_NODELABEL(rv_8263_c8));
+const struct device *const rtc = DEVICE_DT_GET(DT_ALIAS(rtc));
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
