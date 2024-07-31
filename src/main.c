@@ -46,7 +46,7 @@ int main(void)
         return -1;
     }
 
-    time.tm_hour = 00;
+    time.tm_hour = 0;
     time.tm_min = 1;
     time.tm_sec = 0;
     time.tm_wday = 0;
