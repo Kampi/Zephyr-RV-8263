@@ -16,6 +16,7 @@ static uint16_t mask;
 void on_rtc_update(const struct device *dev, void *user_data)
 {
     rtc_get_time(rtc, &time);
+    LOG_INF("Time from update callback");
     LOG_INF("Seconds: %u", time.tm_sec);
     LOG_INF("Minute: %u", time.tm_min);
     LOG_INF("Hour: %u", time.tm_hour);
@@ -53,7 +54,9 @@ int main(void)
     time.tm_mday = 1;
     time.tm_mon = 1;
     time.tm_year = 124;
-    rtc_set_time(rtc, &time);
+    if (rtc_set_time(rtc, &time)) {
+        LOG_ERR("Can not set time!");
+    }
 
 #if CONFIG_RTC_ALARM
     uint16_t id = 0;
@@ -66,19 +69,21 @@ int main(void)
 
     rtc_get_time(rtc, &alarm_time);
     alarm_time.tm_sec += 10;
-    rtc_alarm_set_time(rtc, id, mask, &alarm_time);
-    rtc_alarm_set_callback(rtc, id, on_rtc_alarm, NULL);
+    if (rtc_alarm_set_time(rtc, id, mask, &alarm_time) ||  rtc_alarm_set_callback(rtc, id, on_rtc_alarm, NULL)) {
+        LOG_ERR("Can not enable alarm!");
+    }
 #endif
 
 #if CONFIG_RTC_UPDATE
     rtc_update_set_callback(rtc, on_rtc_update, NULL);
 #endif
 
-#if CONFIG_RTC_UPDATE
+#if CONFIG_RTC_CALIBRATION
     int32_t calibration;
 
-    rtc_set_calibration(rtc, 120000);
-    rtc_get_calibration(rtc, &calibration);
+    if (rtc_set_calibration(rtc, 120000) || rtc_get_calibration(rtc, &calibration)) {
+        LOG_ERR("Can not calibrate RTC!");
+    }
     LOG_INF("Calibration: %i", calibration);
 #endif
 
