@@ -1,7 +1,7 @@
 / {
-	aliases {
-		rtc = &rv_8263_c8;
-	};
+    aliases {
+        rtc = &rv_8263_c8;
+    };
 };
 
 &i2c1 {
